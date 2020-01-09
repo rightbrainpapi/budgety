@@ -19,10 +19,23 @@ var add = function(a){
 
 return {
     publicTest: function(b){
-        console.log(add(b));
+        return add(b);
     }
 }
 })();
 
 
-console.log("This is the page.")
+var UIController = (function(){
+//  Some Code
+})();
+
+var controller = (function(budgetCtrl, UICtrl){
+    var z = budgetCtrl.publicTest(5);
+
+    return{
+        anotherPublic: function(){
+            console.log(z)
+
+        }
+    }
+})(budgetController, UIController);
