@@ -9,33 +9,44 @@
 
 //  Iffy -  Immediately invoked function or expression
 // returns and object containing all of the functions e want public
+
+//BUDGET CONTROLLER 
 var budgetController = (function(){
+// some code
 
-var x = 23;
-
-var add = function(a){
-    return x + a;
-}
-
-return {
-    publicTest: function(b){
-        return add(b);
-    }
-}
 })();
 
-
+// UI CONTROLLER 
 var UIController = (function(){
-//  Some Code
+//  Some 
+
+
 })();
 
+
+
+
+
+// GOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
-    var z = budgetCtrl.publicTest(5);
 
-    return{
-        anotherPublic: function(){
-            console.log(z)
 
-        }
+
+    var ctrlAddItem = function (){
+        // [] get the field input 
+        // [] add the item to the budget controller
+        // [] Add the item to the UI
+        // [] calculate the budget
+        // [] display the budget on the UI
+        console.log("This is currrently working! ")
     }
+    document.querySelector('.add__btn').addEventListener("click", ctrlAddItem);
+
+
+    document.addEventListener('keypress', function(event){
+        if (event.keyCode === 13 || event.which === 13){
+            ctrlAddItem();
+        }
+    })
+
 })(budgetController, UIController);
