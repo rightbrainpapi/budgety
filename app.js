@@ -54,13 +54,21 @@ var DOMstrings = {
 
 
 
-// GOBAL APP CONTROLLER
+// GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
 
-    var DOM = UICtrl.getDOMstrings();
+    var setupEventListeners = function(){
+        var DOM = UICtrl.getDOMstrings();
+        document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
+        document.addEventListener('keypress', function(event){
+            if (event.keyCode === 13 || event.which === 13){
+                ctrlAddItem();
+            }
+        });
+    };
 
     var ctrlAddItem = function (){
-        // [] get the field input 
+        // [x] get the field input 
         var input = UICtrl.getInput();
         console.log(input);
         // [] add the item to the budget controller
@@ -68,17 +76,17 @@ var controller = (function(budgetCtrl, UICtrl){
         // [] calculate the budget
         // [] display the budget on the UI
         console.log("This is currrently working! ")
-    }
-    document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
+    };
 
-
-    document.addEventListener('keypress', function(event){
-        if (event.keyCode === 13 || event.which === 13){
-            ctrlAddItem();
-
-            
+    return {
+        init: function (){
+            console.log("Application has started.");
+            setupEventListeners();
         }
-    })
+    }
 
 // Bringing in the 2 seperate modules
 })(budgetController, UIController);
+
+// initializing the setupEventListeners that exist inside of the Global App Controller
+controller.init();
