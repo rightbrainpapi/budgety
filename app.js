@@ -1,33 +1,53 @@
-// add event handler
-// get input values
-// add the new item to our data structure
-// add the new item to the UI
-// add the new item to the UI
-// calculate the new budget
-// Update the UI
-
-
 //  Iffy -  Immediately invoked function or expression
 // returns and object containing all of the functions e want public
 
-//BUDGET CONTROLLER 
+//BUDGET CONTROLLER
+// Keeps track of all the income and expenses and the budget itself
+// And also the percentages
 var budgetController = (function(){
-// some code
+    // Creating a Function Constructor
+    class Expense {
+        constructor(id, description, value) {
+            this.id = id;
+            this.description = description;
+            this.value = value;
+        }
+    };
+
+    class Income {
+        constructor(id, description, value) {
+            this.id = id;
+            this.description = description;
+            this.value = value;
+        }
+    };
+
+    var allExpenses = [];
+    var allIncomes = [];
+    var totalExpenses = 0;
+
+    var data = {
+        allItems:{
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    }
+
 
 })();
 
 // UI CONTROLLER 
 var UIController = (function(){
-//  Some code 
-
-var DOMstrings = {
-    inputType: ".add__type",
-    inputDescription: ".add__description",
-    inputValue: ".add__value",
-    inputBtn: '.add__btn'
-
-
-}
+    var DOMstrings = {
+        inputType: ".add__type",
+        inputDescription: ".add__description",
+        inputValue: ".add__value",
+        inputBtn: '.add__btn'
+    }
 
 // Modules return functions as objects
     return{
