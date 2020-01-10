@@ -18,7 +18,34 @@ var budgetController = (function(){
 
 // UI CONTROLLER 
 var UIController = (function(){
-//  Some 
+//  Some code 
+
+var DOMstrings = {
+    inputType: ".add__type",
+    inputDescription: ".add__description",
+    inputValue: ".add__value",
+    inputBtn: '.add__btn'
+
+
+}
+
+// Modules return functions as objects
+    return{
+        getInput: function(){
+            // Adding an nest object in order to return several properties at once
+            return {
+                 type : document.querySelector(DOMstrings.inputType).value, // will be inc or exp
+                 description : document.querySelector(DOMstrings.inputDescription).value,
+                 value : document.querySelector(DOMstrings.inputValue).value,
+            };
+        },
+        getDOMstrings: function(){
+            // Basically exposing DOMstrings to the public
+            return DOMstrings;
+        }
+
+    };
+
 
 
 })();
@@ -30,24 +57,27 @@ var UIController = (function(){
 // GOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl){
 
-
+    var DOM = UICtrl.getDOMstrings();
 
     var ctrlAddItem = function (){
         // [] get the field input 
+        var input = UICtrl.getInput();
+        console.log(input);
         // [] add the item to the budget controller
         // [] Add the item to the UI
         // [] calculate the budget
         // [] display the budget on the UI
         console.log("This is currrently working! ")
     }
-    document.querySelector('.add__btn').addEventListener("click", ctrlAddItem);
+    document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
 
 
     document.addEventListener('keypress', function(event){
         if (event.keyCode === 13 || event.which === 13){
             ctrlAddItem();
-            
+
         }
     })
 
+// Bringing in the 2 seperate modules
 })(budgetController, UIController);
