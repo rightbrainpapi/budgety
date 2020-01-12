@@ -122,7 +122,7 @@ var UIController = (function(){
 
         },
 
-        clearFields:function(){
+        clearFields: function() {
             var fields, fieldsArr ; 
 
             // The querySelectAll returns a list. 
@@ -132,9 +132,11 @@ var UIController = (function(){
             fieldsArr = Array.prototype.slice.call(fields);
 
             // Loop over the array
-            fieldsArr.forEach(function(curent, index, array){
+            fieldsArr.forEach(function(current, index, array){
                 current.value = "";
             });
+
+            fieldsArr[0].focus();
         },
 
 
@@ -174,7 +176,7 @@ var controller = (function(budgetCtrl, UICtrl){
         // [x] add the item to the budget controller
         newItem = budgetCtrl.addItem(input.type, input.description, input.value ); // We are getting the type, deescription and value from the UICtrl,getInput above
         // [x] Add the item to the UI
-        UIController.addListItem(newItem, input.type);
+        UICtrl.addListItem(newItem, input.type);
         // [x] Clear the fieds
         UICtrl.clearFields();
 
