@@ -122,6 +122,21 @@ var UIController = (function(){
 
         },
 
+        clearFields:function(){
+            var fields, fieldsArr ; 
+
+            // The querySelectAll returns a list. 
+            fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+            
+            // because we are recieving a list we will use this trick to get the results as an array
+            fieldsArr = Array.prototype.slice.call(fields);
+
+            // Loop over the array
+            fieldsArr.forEach(function(curent, index, array){
+                current.value = "";
+            });
+        },
+
 
         getDOMstrings: function(){
             // Basically exposing DOMstrings to the public
@@ -160,6 +175,9 @@ var controller = (function(budgetCtrl, UICtrl){
         newItem = budgetCtrl.addItem(input.type, input.description, input.value ); // We are getting the type, deescription and value from the UICtrl,getInput above
         // [x] Add the item to the UI
         UIController.addListItem(newItem, input.type);
+        // [x] Clear the fieds
+        UICtrl.clearFields();
+
         // [] calculate the budget
         // [] display the budget on the UI
         console.log("This is currrently working! ")
