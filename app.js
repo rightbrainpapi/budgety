@@ -79,7 +79,9 @@ var UIController = (function(){
         inputType: ".add__type",
         inputDescription: ".add__description",
         inputValue: ".add__value",
-        inputBtn: '.add__btn'
+        inputBtn: '.add__btn',
+        incomeContainer: '.income__list',
+        expensesContainer: '.expenses__list',
     }
 
 // Modules return functions as objects
@@ -92,6 +94,35 @@ var UIController = (function(){
                  value : document.querySelector(DOMstrings.inputValue).value,
             };
         },
+
+        addListItem: function(obj, type){
+            var html, newHtml, element;
+
+            // Create HTML String w/ Placeholder text
+            if (type === 'inc'){
+                element = DOMstrings.incomeContainer;
+                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+
+            }
+            else if (type === 'exp'){
+                element = DOMstrings.expensesContainer;
+                html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div> <div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+
+            }
+            
+            // Replace the placeholder text with some actual data
+            newHtml = html.replace('%id%', obj.id);
+            newHtml = newHtml.replace('%description%', obj.description);
+            newHtml = newHtml.replace('%value%', obj.value);
+
+            // Insery the HTML into the DOM
+
+            document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+
+
+        },
+
+
         getDOMstrings: function(){
             // Basically exposing DOMstrings to the public
             return DOMstrings;
@@ -107,7 +138,7 @@ var UIController = (function(){
 
 
 
-// GLOBAL APP CONTROLLER
+// GLOBAL APP CONTROLLER - control center of the app
 var controller = (function(budgetCtrl, UICtrl){
 
     var setupEventListeners = function(){
@@ -125,9 +156,10 @@ var controller = (function(budgetCtrl, UICtrl){
         // [x] get the field input 
         input = UICtrl.getInput();
         
-        // [] add the item to the budget controller
+        // [x] add the item to the budget controller
         newItem = budgetCtrl.addItem(input.type, input.description, input.value ); // We are getting the type, deescription and value from the UICtrl,getInput above
-        // [] Add the item to the UI
+        // [x] Add the item to the UI
+        UIController.addListItem(newItem, input.type);
         // [] calculate the budget
         // [] display the budget on the UI
         console.log("This is currrently working! ")
