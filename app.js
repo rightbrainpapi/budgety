@@ -22,9 +22,26 @@ var budgetController = (function(){
         }
     };
 
-    var allExpenses = [];
-    var allIncomes = [];
-    var totalExpenses = 0;
+    var calculateTotal = function(type){
+        var sum = 0;
+        data.allItems[type].forEach(function(cur){
+            sum = sum + cur.value;
+            /*
+            0
+            [200, 400, 100]
+            sum = 0 + 200
+            sum = 200 + 400
+            sum = 600 + 100 = 700
+             */
+        });
+        // Setting the data variable to to sum that we just calculated
+        data.totals[type] = sum
+    };
+
+
+    // var allExpenses = [];
+    // var allIncomes = [];
+    // var totalExpenses = 0;
 
     var data = {
         allItems:{
@@ -34,7 +51,9 @@ var budgetController = (function(){
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1, // setting it to -1 initially to say that nothing is exist at the moment.
     };
 
     // Public Method - To allow other modules to add new item into data structure
@@ -63,7 +82,22 @@ var budgetController = (function(){
             // return the new elements
             return newItem;
               
-        },
+            },
+            calculateBudget: function(){
+                // calculate total income and expence.
+                calculateTotal('exp');
+                calculateTotal('inc');
+
+                // calculate the Budget income - expenses
+                data.budget = datat.totals.inc - data.totals.exp; // This retrieves the values from the data structure and calculates one minus the other then stores it into our datat structure in the budget property (data.budget)
+                
+                // calculate the percentage of income that we spent
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+                //  Expense = 100 and income 300, spent 33.333% = 100/300 = 0.333 * 100
+
+            },
+
+
         // Used this to see whether budget controller had acess to the data
         testing: function() {
             console.log(data);
@@ -173,6 +207,7 @@ var controller = (function(budgetCtrl, UICtrl){
 
 var updateBudget = function(){
     // [] calculate the budget
+    budget.calculateBudget();
     // [] return the budget
     // [] display the budget on the UI
 }
