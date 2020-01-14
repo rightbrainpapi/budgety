@@ -1,9 +1,16 @@
 //  Iffy -  Immediately invoked function or expression
 // returns and object containing all of the functions e want public
 
+
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 //BUDGET CONTROLLER
 // Keeps track of all the income and expenses and the budget itself
 // And also the percentages
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 var budgetController = (function(){
     // Creating a Function Constructor
     class Expense {
@@ -25,7 +32,7 @@ var budgetController = (function(){
     var calculateTotal = function(type){
         var sum = 0;
         data.allItems[type].forEach(function(cur){
-            sum = sum + cur.value;
+            sum += cur.value;
             /*
             0
             [200, 400, 100]
@@ -89,11 +96,33 @@ var budgetController = (function(){
                 calculateTotal('inc');
 
                 // calculate the Budget income - expenses
-                data.budget = datat.totals.inc - data.totals.exp; // This retrieves the values from the data structure and calculates one minus the other then stores it into our datat structure in the budget property (data.budget)
+                data.budget = data.totals.inc - data.totals.exp; // This retrieves the values from the data structure and calculates one minus the other then stores it into our datat structure in the budget property (data.budget)
                 
                 // calculate the percentage of income that we spent
+               // we can not divid a number by 0 so we only want to run this when the total income is greater than 0
+                if (data.totals.inc > 0){
                 data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
                 //  Expense = 100 and income 300, spent 33.333% = 100/300 = 0.333 * 100
+
+               }else{
+                   // otherwise reset the percentage to -1 which represents non existence.
+                   data.percentage = -1;
+
+               }
+  
+            },
+
+            getBudget: function(){
+                // need to return the budget
+
+                return {
+                    // This is returning the newly updated data structure
+                    budget: data.budget,
+                    totalInc: data.totals.inc,
+                    totalExp: data.totals.exp,
+                    percentage: data.percentage
+
+                }
 
             },
 
@@ -187,9 +216,12 @@ var UIController = (function(){
 
 
 
-
-
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 // GLOBAL APP CONTROLLER - control center of the app
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+
 var controller = (function(budgetCtrl, UICtrl){
 
     var setupEventListeners = function(){
@@ -206,10 +238,12 @@ var controller = (function(budgetCtrl, UICtrl){
 // Update the Budget 
 
 var updateBudget = function(){
-    // [] calculate the budget
-    budget.calculateBudget();
-    // [] return the budget
-    // [] display the budget on the UI
+    // [x] calculate the budget
+    budgetCtrl.calculateBudget();
+    // [x] return the budget
+    var budget = budgetCtrl.getBudget();
+    // [x] display the budget on the UI
+    console.log(budget);
 }
 
 
