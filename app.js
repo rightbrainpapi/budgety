@@ -63,11 +63,11 @@ var budgetController = (function(){
             // return the new elements
             return newItem;
               
-        }
+        },
         // Used this to see whether budget controller had acess to the data
-        // testing: function() {
-        //     console.log(data);
-        // }
+        testing: function() {
+            console.log(data);
+        }
     };
 
 
@@ -91,7 +91,7 @@ var UIController = (function(){
             return {
                  type : document.querySelector(DOMstrings.inputType).value, // will be inc or exp
                  description : document.querySelector(DOMstrings.inputDescription).value,
-                 value : document.querySelector(DOMstrings.inputValue).value,
+                 value : parseFloat(document.querySelector(DOMstrings.inputValue).value),
             };
         },
 
@@ -168,20 +168,38 @@ var controller = (function(budgetCtrl, UICtrl){
         });
     };
 
+
+// Update the Budget 
+
+var updateBudget = function(){
+    // [] calculate the budget
+    // [] return the budget
+    // [] display the budget on the UI
+}
+
+
+
+
     var ctrlAddItem = function (){
         var input, newItem;
         // [x] get the field input 
         input = UICtrl.getInput();
         
-        // [x] add the item to the budget controller
-        newItem = budgetCtrl.addItem(input.type, input.description, input.value ); // We are getting the type, deescription and value from the UICtrl,getInput above
-        // [x] Add the item to the UI
-        UICtrl.addListItem(newItem, input.type);
-        // [x] Clear the fieds
-        UICtrl.clearFields();
 
-        // [] calculate the budget
-        // [] display the budget on the UI
+        if (input.description !== "" && !isNaN(input.value) && input.value > 0 ){
+            // [x] add the item to the budget controller
+            newItem = budgetCtrl.addItem(input.type, input.description, input.value ); // We are getting the type, deescription and value from the UICtrl,getInput above
+            // [x] Add the item to the UI
+            UICtrl.addListItem(newItem, input.type);
+            // [x] Clear the fieds
+            UICtrl.clearFields();
+
+            // [x] Calculate and update the Budget
+            updateBudget();
+
+        }
+    
+       
         console.log("This is currrently working! ")
     };
 
