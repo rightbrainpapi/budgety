@@ -182,7 +182,7 @@ var UIController = (function(){
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', obj.value);
 
-            // Insery the HTML into the DOM
+            // Insert the HTML into the DOM
 
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
 
